@@ -1,25 +1,24 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import './App.css';
 import BoardPage from "./pages/BoardPage";
+import Home from './pages/Home';
 import { AppBar,Button,Toolbar, Typography } from "@material-ui/core";
 function App() {
   return (
-    <div>
+    <div className="App">
+    <Router>
     <AppBar position="static" className="appbar">
       <Toolbar>
         <Typography variant="h4" className="brandName">Project Board Manager</Typography>
-        <Button> Logout </Button>
+        <Link to="/"><Button> Logout </Button></Link>
       </Toolbar>
     </AppBar>
-    <Router>
       <Switch>
         <Route exact path="/">
-          <div className="App">
-            <h1>React App</h1>
-          </div>
+            <Home />
         </Route>
-        <Route path="/list">
+        <Route path="/board">
           <BoardPage />
         </Route>
       </Switch>

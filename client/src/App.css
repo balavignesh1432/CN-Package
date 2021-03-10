@@ -65,3 +65,19 @@
 .brandName{
   flex:1;
 }
+.login{
+  width: 500px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.loginPaper{
+  width:500px;  
+  height: 250px;
+  margin:auto;
+}
+.loginInput{
+  width: 80%;
+}

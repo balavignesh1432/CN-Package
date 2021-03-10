@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { FixedSizeList } from "react-window";
 import { List, ListItem, ListItemText,Paper, TextField,Button,Typography } from '@material-ui/core';
 function BoardList(props){
     const listItem=[1,2,2,1,1,2,21,2,3,1,3,2,1,12,2,22,2,2,22,2]
@@ -7,13 +6,16 @@ function BoardList(props){
     const [newItem,setNewItem]=useState('');
 
     function submitNewItem(){
+        if(newItem!==''){
         setList((prevList)=>[...prevList,newItem]);
         setNewItem('');
+        }
     }
     
     useEffect(()=>{
         // console.log(newItem);
     },[newItem]);
+    
     return (
         <div>
             <Paper elevation={5} className="paperList">
