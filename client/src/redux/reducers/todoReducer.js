@@ -2,6 +2,7 @@ const todoReducer = (state=[],action)=>{
     switch(action.type){
         case "GET_TODO": return action.payload;
         case "PUT_TODO": return [...state,action.payload];
+        case "DEL_TODO": return state.filter(item=>item!==action.payload);
         default: return state;
     }
 };

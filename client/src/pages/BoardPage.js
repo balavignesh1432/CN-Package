@@ -1,11 +1,16 @@
-import BoardList from "../components/BoardList";
+//Components
+import Todo from '../components/Todo';
+import Doing from '../components/Doing';
+import Done from '../components/Done';
 
 function BoardPage(){
+    
     return(
         <div className="boardLists">
-            <BoardList name="To Do"/>
-            <BoardList name="Doing"/>
-            <BoardList name="Done" />
+            <Todo />
+            <Doing />
+            <Done />
+            {/* <Chatroom/> */}
         </div>
     )
 }
