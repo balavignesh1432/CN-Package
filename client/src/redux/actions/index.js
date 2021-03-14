@@ -12,14 +12,35 @@ const getTodo = () => async (dispatch) =>{
 };
 
 //Adding New Todo Item
-const putTodo = (item) => async (dispatch) =>{
+const putTodo = (item) => async (dispatch,getState) =>{
     try{
-        dispatch({type:"PUT_TODO",payload:item});
-        await axios.post(url+"/lists/todo",item);
+        const todoItems=getState().todoReducer;
+        let flag=0; 
+        for(let i=0;i<todoItems.length;i++){
+            if(todoItems[i].name===item.name){
+                flag=1;
+            }
+        }
+        if(flag!==1){
+            dispatch({type:"PUT_TODO",payload:item});
+            await axios.post(url+"/lists/todo",item);
+        }else{
+            alert("Already Exists");
+        }
     }catch(err){
         console.log(err.message);
     }
 };
+
+//Edit Todo
+const editTodo = (oldItem,newItem) => async (dispatch) =>{
+    try{
+        dispatch({type:"EDIT_TODO",payload:{oldItem,newItem}});
+        await axios.post(url+"/lists/todo/edit",{oldItem,newItem});
+    }catch(err){
+        console.log(err.message);
+    }
+}
 
 //Delete Todo Item
 const deleteTodo = (item) => async (dispatch) =>{
@@ -31,11 +52,13 @@ const deleteTodo = (item) => async (dispatch) =>{
     }
 }
 
+ 
+
 //Move Todo Item 
 const moveTodo = (item) =>async (dispatch) =>{
     try{
         dispatch({type:"DEL_TODO",payload:item});
-        dispatch({type:"PUT_DOING",payload:item});
+        dispatch(putDoing(item));
         await axios.post(url+"/lists/todo/move",item);
     }catch(err){
         console.log(err.message);
@@ -53,31 +76,51 @@ const getDoing = () => async (dispatch) =>{
 };
 
 //Adding Doing Item
-const putDoing = (item) => async (dispatch) =>{
+const putDoing = (item) => async (dispatch,getState) =>{
     try{
-        dispatch({type:"PUT_DOING",payload:item});
-        await axios.post(url+"/lists/doing",item);
+        const doingItems=getState().doingReducer;
+        let flag=0; 
+        for(let i=0;i<doingItems.length;i++){
+            if(doingItems[i].name===item.name){
+                flag=1;
+            }
+        }
+        if(flag!==1){
+            dispatch({type:"PUT_DOING",payload:item});
+            await axios.post(url+"/lists/doing",item);
+        }else{
+            alert("Already Exists");
+        }
     }catch(err){
         console.log(err.message);
     }
 };
+
+const editDoing = (oldItem,newItem) => async (dispatch) =>{
+    try{
+        dispatch({type:"EDIT_DOING",payload:{oldItem,newItem}});
+        await axios.post(url+"/lists/doing/edit",{oldItem,newItem});
+    }catch(err){
+        console.log(err.message);
+    }
+} 
+
+//Move Doing Item
+const moveDoing = (item) =>async (dispatch) =>{
+    try{
+        dispatch({type:"DEL_DOING",payload:item});
+        dispatch(putDone(item));
+        await axios.post(url+"/lists/doing/move",item);
+    }catch(err){
+        console.log(err.message);
+    }
+}
 
 //Delete Doing Item
 const deleteDoing = (item) => async (dispatch) =>{
     try{
         dispatch({type:"DEL_DOING",payload:item});
         await axios.post(url+"/lists/doing/delete",item);
-    }catch(err){
-        console.log(err.message);
-    }
-}
-
-//Move Doing Item
-const moveDoing = (item) =>async (dispatch) =>{
-    try{
-        dispatch({type:"DEL_DOING",payload:item});
-        dispatch({type:"PUT_DONE",payload:item});
-        await axios.post(url+"/lists/doing/move",item);
     }catch(err){
         console.log(err.message);
     }
@@ -94,14 +137,35 @@ const getDone = () => async (dispatch) =>{
 };
 
 //Adding Done Item
-const putDone = (item) => async (dispatch) =>{
+const putDone = (item) => async (dispatch,getState) =>{
     try{
-        dispatch({type:"PUT_DONE",payload:item});
-        await axios.post(url+"/lists/done",item);
+        const doneItems=getState().doneReducer;
+        let flag=0; 
+        for(let i=0;i<doneItems.length;i++){
+            if(doneItems[i].name===item.name){
+                flag=1;
+            }
+        }
+        if(flag!==1){
+            dispatch({type:"PUT_DONE",payload:item});
+            await axios.post(url+"/lists/done",item);
+        }else{
+            alert("Already Exists");
+        }
     }catch(err){
         console.log(err.message);
     }
 };
+
+//Edit Done
+const editDone = (oldItem,newItem) => async (dispatch) =>{
+    try{
+        dispatch({type:"EDIT_DONE",payload:{oldItem,newItem}});
+        await axios.post(url+"/lists/done/edit",{oldItem,newItem});
+    }catch(err){
+        console.log(err.message);
+    }
+}
 
 //Delete Done Item
 const deleteDone= (item) =>async (dispatch) =>{
@@ -123,4 +187,4 @@ const setUser = (user) => async (dispatch) =>{
     }
 }
 
-export {getTodo,putTodo,deleteTodo,moveTodo,getDoing,putDoing,deleteDoing,moveDoing,getDone,putDone,deleteDone,setUser};
+export {getTodo,putTodo,deleteTodo,editTodo,moveTodo,getDoing,putDoing,editDoing,deleteDoing,moveDoing,getDone,putDone,editDone,deleteDone,setUser};
