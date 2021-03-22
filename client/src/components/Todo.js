@@ -7,10 +7,11 @@ import { Delete,MoreVert,Add} from "@material-ui/icons";
 
 //Redux
 import {useSelector, useDispatch} from 'react-redux';
-import {putTodo,deleteTodo,moveTodo,editTodo} from '../redux/actions/index';
+import {getTodo,putTodo,deleteTodo,moveTodo,editTodo,} from '../redux/actions/index';
 
 
 function Todo(){                
+
     const [listOpen,setListOpen]=useState(false);     //List Open State
     const [anchorEl, setAnchorEl] = useState(null);   //Position for opening menu
     const open=Boolean(anchorEl);                     //Menu Open State
@@ -29,6 +30,7 @@ function Todo(){
     //Redux State
     const todoList = useSelector((state)=>state.todoReducer);
     const dispatch = useDispatch();
+    
     
     //Add New Item
     function submitNewItem(){
@@ -107,8 +109,8 @@ function Todo(){
     }
  
     useEffect(()=>{
-
-    },[]);
+        dispatch(getTodo());
+    },[dispatch]);
 
     return (
         <div>

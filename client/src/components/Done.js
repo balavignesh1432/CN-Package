@@ -7,7 +7,7 @@ import { Delete,MoreVert,Add } from "@material-ui/icons";
 
 //Redux
 import {useSelector, useDispatch} from 'react-redux';
-import {putDone,deleteDone,editDone} from '../redux/actions/index';
+import {getDone,putDone,deleteDone,editDone} from '../redux/actions/index';
 
 function Done(){
     const [listOpen,setListOpen]=useState(false);     //List Open State
@@ -104,8 +104,8 @@ function Done(){
      }
  
     useEffect(()=>{
-        
-    },[]);
+        dispatch(getDone());
+    },[dispatch]);
 
     return (
         <div>

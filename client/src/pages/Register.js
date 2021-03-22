@@ -1,5 +1,5 @@
 //React
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 
 //Material UI
 import { Button, TextField,Paper} from "@material-ui/core";
@@ -8,8 +8,8 @@ import { Button, TextField,Paper} from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
 //Redux
-import { useDispatch } from "react-redux";
-import { setUser } from "../redux/actions/index";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, putUser } from "../redux/actions/index";
 
 function Register(){
 
@@ -21,12 +21,33 @@ function Register(){
     //Redux
     const dispatch=useDispatch();
     
+    const users=useSelector((state)=>state.userReducer);
+    
+    useEffect(()=>{
+        dispatch(getUser());
+    },[dispatch]);
+
     //Routing History
     const history=useHistory();
     function handleClick(){
-        dispatch(setUser({name,email,username,password}));
-        history.push("/");
+        let flag=0
+        for(let i=0;i<users.length;i++){
+            if(users[i].username===username){
+                flag=1;
+                break;
+            }
+        }
+        if(flag===0){
+            dispatch(putUser({name,email,username,password}));
+            alert("Registration Successful!");
+            history.push("/");
+        }else{
+            alert("Username already exists");
+        }
+        
     }
+
+    
     return (
         <Paper elevation={10} className="loginPaper">
         <div className="login">
