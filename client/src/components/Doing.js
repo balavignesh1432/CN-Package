@@ -26,9 +26,14 @@ function Doing(){
     const options=['Move','Delete'];            //Menu Options
 
     //Redux
-    const doingList = useSelector((state)=>state.doingReducer);         
     const dispatch = useDispatch();
+    const doingList = useSelector((state)=>state.doingReducer);         
     
+    //Fetch Doing Lists
+    useEffect(()=>  {
+        dispatch(getDoing());
+    },[dispatch]);
+
     //Add New Item
     function submitNewItem(){
         if(newItem!==''){
@@ -104,10 +109,6 @@ function Doing(){
     function handleDeleteMember(member){
         setTeamEdit(teamEdit.filter((item)=>item!==member)); 
      }
-
-    useEffect(()=>  {
-        dispatch(getDoing());
-    },[dispatch]);
 
     return (
         <div>

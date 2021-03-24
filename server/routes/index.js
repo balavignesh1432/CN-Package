@@ -1,25 +1,29 @@
-const {getUser,postUser,setroomUser,getroomUser,getwaitUser,setwaitUser,postList,getList}=require('../controllers/index');
+const {getUser,postUser,setroomUser,getroomUser,getwaitUser,setwaitUser,postList,getList,delwaitUser}=require('../controllers/index');
 const express=require('express');
 const router = express.Router();
 
 router.get("/test",(req,res)=>{
     console.log("Routing Successful");
+    console.log(req.body);
 });
 
+//User Registration and Details
 router.get("/user",getUser);
 router.post("/user",postUser);
 
-router.get("/room",getroomUser);
-router.post("/room",setroomUser);
+//Room Users
+router.post("/room/get",getroomUser);
+router.post("/room/post",setroomUser);
 
-router.get("/wait",getwaitUser);
-router.post("/wait",setwaitUser);
+//Waiting Users
+router.post("/wait/get",getwaitUser);
+router.post("/wait/post",setwaitUser);
+router.post("/wait/delete",delwaitUser);
 
+//List Items
 router.post("/lists/get",getList);
-
-router.post("/lists/todo",postList);
-router.post("/lists/doing",postList); 
-router.post("/lists/done",postList); 
+router.post("/lists/post",postList);
+ 
 
 
 

@@ -27,8 +27,13 @@ function Done(){
     const options=['Delete'];        //Menu Options
 
     //Redux
-    const doneList = useSelector((state)=>state.doneReducer);
     const dispatch = useDispatch();
+    const doneList = useSelector((state)=>state.doneReducer);
+
+    //Fetch Done Lists
+    useEffect(()=>{
+        dispatch(getDone());
+    },[dispatch]);
     
     //Add New Item
     function submitNewItem(){
@@ -103,10 +108,6 @@ function Done(){
         setTeamEdit(teamEdit.filter((item)=>item!==member)); 
      }
  
-    useEffect(()=>{
-        dispatch(getDone());
-    },[dispatch]);
-
     return (
         <div>
             <Paper elevation={5} className="paperList">

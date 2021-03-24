@@ -1,6 +1,7 @@
 const loggedReducer = (state=false,action) =>{
     switch(action.type){
-        case "SET_LOG": return !state;
+        case "GET_LOG": return state;
+        case "SET_LOG": return true;
         default : return state;
     }
 } 

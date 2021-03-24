@@ -2,10 +2,11 @@
 import React,{useEffect, useState} from 'react';
 
 //Material UI
-import { Button, TextField,Paper} from "@material-ui/core";
+import { Button, TextField,Paper,AppBar,Toolbar,Typography} from "@material-ui/core";
 
 //Routing
 import { useHistory } from "react-router-dom";
+import {Link} from 'react-router-dom';
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +19,9 @@ function Register(){
     const [username,setUsername]=useState('');
     const [password,setPassword]=useState('');
 
+    //Routing History
+    const history=useHistory();
+
     //Redux
     const dispatch=useDispatch();
     
@@ -27,8 +31,6 @@ function Register(){
         dispatch(getUser());
     },[dispatch]);
 
-    //Routing History
-    const history=useHistory();
     function handleClick(){
         let flag=0
         for(let i=0;i<users.length;i++){
@@ -47,8 +49,15 @@ function Register(){
         
     }
 
-    
     return (
+        <>
+        <AppBar position="static" className="appbar">
+        <Toolbar>
+          <Typography variant="h4" className="brandName">Project Board Manager</Typography>
+          <Link to="/login" style={{textDecoration:"none"}}><Button> Login </Button></Link>
+          <Link to="/" style={{textDecoration:"none"}}><Button> Home </Button></Link>
+        </Toolbar>
+        </AppBar>
         <Paper elevation={10} className="loginPaper">
         <div className="login">
         <TextField label="Name" className="loginInput" value={name} onChange={(event)=>setName(event.target.value)}/>
@@ -58,6 +67,7 @@ function Register(){
         <Button variant="contained" color="primary" onClick={handleClick}>Register</Button>
     </div>
     </Paper>
+    </>
     )
 }
 

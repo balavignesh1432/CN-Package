@@ -1,5 +1,6 @@
 import axios from 'axios'
-const url="http://localhost:5000";
+
+const url="http://localhost:5000";          //Server URL
 
 //Fetching Todo Items
 const getTodo = () => async (dispatch,getState) =>{
@@ -7,6 +8,28 @@ const getTodo = () => async (dispatch,getState) =>{
         const room =getState().roomReducer;
         const {data} = await axios.post(url+"/lists/get",{room:room,type:"todo"});
         dispatch({type:"GET_TODO",payload:data});
+    }catch(err){
+        console.log(err.message);
+    }
+};
+
+//Fetching Doing Items
+const getDoing = () => async (dispatch,getState) =>{
+    try{
+        const room =getState().roomReducer;
+        const {data} = await axios.post(url+"/lists/get",{room:room,type:"doing"});
+        dispatch({type:"GET_DOING",payload:data});
+    }catch(err){
+        console.log(err.message);
+    }
+};
+
+//Fetching Done Item
+const getDone = () => async (dispatch,getState) =>{
+    try{
+        const room= getState().roomReducer;
+        const {data} = await axios.post(url+"/lists/get",{room:room,type:"done"});
+        dispatch({type:"GET_DONE",payload:data});
     }catch(err){
         console.log(err.message);
     }
@@ -25,57 +48,10 @@ const putTodo = (item) => async (dispatch,getState) =>{
         }
         if(flag!==1){
             dispatch({type:"PUT_TODO",payload:item});
-            await axios.post(url+"/lists/todo",{type:"todo",items:[...todoItems,item],room:room});
+            await axios.post(url+"/lists/post",{type:"todo",items:[...todoItems,item],room:room});
         }else{
             alert("Already Exists");
         }
-    }catch(err){
-        console.log(err.message);
-    }
-};
-
-//Edit Todo
-const editTodo = (oldItem,newItem) => async (dispatch,getState) =>{
-    try{
-        const room =getState().roomReducer;
-        dispatch({type:"EDIT_TODO",payload:{oldItem,newItem}});
-        const todoItems=getState().todoReducer;
-        await axios.post(url+"/lists/todo",{type:"todo",items:todoItems,room:room});
-    }catch(err){
-        console.log(err.message);
-    }
-}
-
-//Delete Todo Item
-const deleteTodo = (item) => async (dispatch,getState) =>{
-    try{
-        const room =getState().roomReducer;
-        dispatch({type:"DEL_TODO",payload:item});
-        const todoItems=getState().todoReducer;
-        await axios.post(url+"/lists/todo",{items:todoItems,room:room,type:"todo"});
-    }catch(err){
-        console.log(err.message);
-    }
-}
-
- 
-
-//Move Todo Item 
-const moveTodo = (item) =>async (dispatch,getState) =>{
-    try{
-        dispatch(deleteTodo(item));
-        dispatch(putDoing(item));
-    }catch(err){
-        console.log(err.message);
-    }
-}
-
-//Fetching Doing Items
-const getDoing = () => async (dispatch,getState) =>{
-    try{
-        const room =getState().roomReducer;
-        const {data} = await axios.post(url+"/lists/get",{room:room,type:"doing"});
-        dispatch({type:"GET_DOING",payload:data});
     }catch(err){
         console.log(err.message);
     }
@@ -94,54 +70,10 @@ const putDoing = (item) => async (dispatch,getState) =>{
         }
         if(flag!==1){
             dispatch({type:"PUT_DOING",payload:item});
-            await axios.post(url+"/lists/doing",{type:"doing",items:[...doingItems,item],room:room});        
+            await axios.post(url+"/lists/post",{type:"doing",items:[...doingItems,item],room:room});        
         }else{
             alert("Already Exists");
         }
-    }catch(err){
-        console.log(err.message);
-    }
-};
-
-const editDoing = (oldItem,newItem) => async (dispatch,getState) =>{
-    try{
-        const room = getState().roomReducer;
-        dispatch({type:"EDIT_DOING",payload:{oldItem,newItem}});
-        const doingItems=getState().doingReducer;
-        await axios.post(url+"/lists/doing",{type:"doing",items:doingItems,room:room});
-    }catch(err){
-        console.log(err.message);
-    }
-} 
-
-//Move Doing Item
-const moveDoing = (item) =>async (dispatch) =>{
-    try{
-        dispatch(deleteDoing(item));
-        dispatch(putDone(item));
-    }catch(err){
-        console.log(err.message);
-    }
-}
-
-//Delete Doing Item
-const deleteDoing = (item) => async (dispatch,getState) =>{
-    try{
-        const room = getState().roomReducer;
-        dispatch({type:"DEL_DOING",payload:item});
-        const doingItems=getState().doingReducer;
-        await axios.post(url+"/lists/doing",{items:doingItems,room:room,type:"doing"});
-    }catch(err){
-        console.log(err.message);
-    }
-}
-
-//Fetching Done Item
-const getDone = () => async (dispatch,getState) =>{
-    try{
-        const room= getState().roomReducer;
-        const {data} = await axios.post(url+"/lists/get",{room:room,type:"done"});
-        dispatch({type:"GET_DONE",payload:data});
     }catch(err){
         console.log(err.message);
     }
@@ -160,7 +92,7 @@ const putDone = (item) => async (dispatch,getState) =>{
         }
         if(flag!==1){
             dispatch({type:"PUT_DONE",payload:item});
-            await axios.post(url+"/lists/done",{type:"done",items:[...doneItems,item],room:room});        
+            await axios.post(url+"/lists/post",{type:"done",items:[...doneItems,item],room:room});        
         }else{
             alert("Already Exists");
         }
@@ -169,13 +101,62 @@ const putDone = (item) => async (dispatch,getState) =>{
     }
 };
 
+
+//Edit Todo
+const editTodo = (oldItem,newItem) => async (dispatch,getState) =>{
+    try{
+        const room =getState().roomReducer;
+        dispatch({type:"EDIT_TODO",payload:{oldItem,newItem}});
+        const todoItems=getState().todoReducer;
+        await axios.post(url+"/lists/post",{type:"todo",items:todoItems,room:room});
+    }catch(err){
+        console.log(err.message);
+    }
+}
+
+//Edit Doing Item
+const editDoing = (oldItem,newItem) => async (dispatch,getState) =>{
+    try{
+        const room = getState().roomReducer;
+        dispatch({type:"EDIT_DOING",payload:{oldItem,newItem}});
+        const doingItems=getState().doingReducer;
+        await axios.post(url+"/lists/post",{type:"doing",items:doingItems,room:room});
+    }catch(err){
+        console.log(err.message);
+    }
+} 
+
 //Edit Done
 const editDone = (oldItem,newItem) => async (dispatch,getState) =>{
     try{
         const room = getState().roomReducer;
         dispatch({type:"EDIT_DONE",payload:{oldItem,newItem}});
         const doneItems=getState().doneReducer;
-        await axios.post(url+"/lists/done",{type:"done",items:doneItems,room:room});
+        await axios.post(url+"/lists/post",{type:"done",items:doneItems,room:room});
+    }catch(err){
+        console.log(err.message);
+    }
+}
+
+//Delete Todo Item
+const deleteTodo = (item) => async (dispatch,getState) =>{
+    try{
+        const room =getState().roomReducer;
+        dispatch({type:"DEL_TODO",payload:item});
+        const todoItems=getState().todoReducer;
+        await axios.post(url+"/lists/post",{room:room,type:"todo",items:todoItems,});
+    }catch(err){
+        console.log(err.message);
+    }
+}
+
+//Delete Doing Item
+const deleteDoing = (item) => async (dispatch,getState) =>{
+    try{
+        const room = getState().roomReducer;
+        dispatch({type:"DEL_DOING",payload:item});
+        const doingItems=getState().doingReducer;
+        await axios.post(url+"/lists/post",{items:doingItems,room:room,type:"doing"});
     }catch(err){
         console.log(err.message);
     }
@@ -187,7 +168,59 @@ const deleteDone= (item) =>async (dispatch,getState) =>{
         const room= getState().roomReducer;
         dispatch({type:"DEL_DONE",payload:item});
         const doneItems=getState().doneReducer;
-        await axios.post(url+"/lists/done",{items:doneItems,room:room,type:"done"});
+        await axios.post(url+"/lists/post",{items:doneItems,room:room,type:"done"});
+    }catch(err){
+        console.log(err.message);
+    }
+}
+
+//Move Todo Item 
+const moveTodo = (item) =>async (dispatch,getState) =>{
+    try{
+        dispatch(deleteTodo(item));
+        dispatch(putDoing(item));
+    }catch(err){
+        console.log(err.message);
+    }
+}
+
+//Move Doing Item
+const moveDoing = (item) =>async (dispatch) =>{
+    try{
+        dispatch(deleteDoing(item));
+        dispatch(putDone(item));
+    }catch(err){
+        console.log(err.message);
+    }
+}
+
+//Get all User Details
+const getUser = () => async (dispatch) =>{
+    try{
+        const {data} = await axios.get(url+"/user");
+        dispatch({type:"GET_USER",payload:data});
+    }catch(err){
+        console.log(err.message);
+    }
+}
+
+//Get all room users
+const getroomUser = () => async (dispatch)=>{
+    try{   
+        const {data} = await axios.post(url+"/room/get");
+        dispatch({type:"SET_ROOMUSER",payload:data});
+    }catch(err){
+        console.log(err.message);
+    }
+}
+
+//Get all waiting users
+const getwaitUser = () => async (dispatch,getState)=>{
+    try{   
+        const room = getState().roomReducer;
+        // console.log({room:room});
+        const {data} = await axios.post(url+"/wait/get",{room:room});
+        dispatch({type:"SET_WAITUSER",payload:data});
     }catch(err){
         console.log(err.message);
     }
@@ -203,46 +236,86 @@ const putUser = (user) => async (dispatch) =>{
     }
 }
 
-const getUser = () => async (dispatch) =>{
-    try{
-        const {data} = await axios.get(url+"/user");
-        dispatch({type:"GET_USER",payload:data});
+//Set room users
+const setroomUser = (user) => async (dispatch,getState)=>{
+    try{   
+        const roomUsers= getState().roomUserReducer;
+        let flag=0;
+        for(let i=0;i<roomUsers.length;i++){
+            if(roomUsers[i].room===user.room){
+                roomUsers[i].users.push(user.username);
+                flag=1;
+                break;
+            }
+        }
+        if(flag===1){
+            dispatch({type:"SET_ROOMUSER",payload:roomUsers});
+        }else{
+            roomUsers.push({room:user.room,users:[user.username]});
+            dispatch({type:"SET_ROOMUSER",payload:roomUsers});
+        }
+        await axios.post(url+"/room/post",user);
     }catch(err){
         console.log(err.message);
     }
 }
 
-const getroomUser = (user) => async (dispatch)=>{
-    try{   
-        const {data} = await axios.get(url+"/room",user);
-        dispatch({type:"GET_ROOMUSER",payload:data});
-    }catch(err){
-        console.log(err.message);
-    }
-}
-const setroomUser = (user) => async (dispatch)=>{
-    try{   
-        await axios.post(url+"/room",user);
-    }catch(err){
-        console.log(err.message);
-    }
-}
-const getwaitUser = (user) => async (dispatch)=>{
-    try{   
-        const {data} = await axios.get(url+"/wait",user);
-        dispatch({type:"GET_WAITUSER",payload:data});
-    }catch(err){
-        console.log(err.message);
-    }
-}
+//Set waiting Users
 const setwaitUser = (user) => async (dispatch)=>{
     try{   
-        await axios.post(url+"/wait",user);
+        await axios.post(url+"/wait/post",user);
     }catch(err){
         console.log(err.message);
     }
 }
 
+//Move users from waiting to room users
+const acceptUser = (user) => async (dispatch,getState)=>{
+    try{
+        const room=getState().roomReducer;
+        dispatch({type:"DEL_WAITUSER",payload:user});
+        dispatch(setroomUser({username:user,room:room}));
+        const waitUsers = getState().waitUserReducer;
+        await axios.post(url+"/wait/delete",{room:room,users:waitUsers});
+        
+    }catch(err){
+        console.log(err.message);
+    }
+}
 
+//Remove waiting users
+const removeWaitUser = (user) => async (dispatch,getState)=>{
+    try{
+        const room=getState().roomReducer;
+        dispatch({type:"DEL_WAITUSER",payload:user});
+        const waitUsers = getState().waitUserReducer;
+        await axios.post(url+"/wait/delete",{room:room,users:waitUsers});
+    }catch(err){
+        console.log(err.message);
+    }
+}
 
-export {getTodo,putTodo,deleteTodo,editTodo,moveTodo,getDoing,putDoing,editDoing,deleteDoing,moveDoing,getDone,putDone,editDone,deleteDone,putUser,getUser,getroomUser,setroomUser,getwaitUser,setwaitUser};
+export {
+    getTodo,
+    getDoing,
+    getDone,
+    putTodo,
+    putDoing,
+    putDone,
+    editTodo,
+    editDoing,
+    editDone,
+    deleteTodo,
+    deleteDoing,
+    deleteDone,
+    moveTodo,
+    moveDoing,
+    getUser,
+    getroomUser,
+    getwaitUser,
+    putUser,
+    setroomUser,
+    setwaitUser,
+    acceptUser,
+    removeWaitUser
+};

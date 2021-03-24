@@ -28,9 +28,13 @@ function Todo(){
     const options=['Move','Delete'];                            //Menu Options
 
     //Redux State
-    const todoList = useSelector((state)=>state.todoReducer);
     const dispatch = useDispatch();
-    
+    const todoList = useSelector((state)=>state.todoReducer);
+
+    //Fetch Todo Lists
+    useEffect(()=>{
+        dispatch(getTodo());
+    },[dispatch]);
     
     //Add New Item
     function submitNewItem(){
@@ -107,10 +111,6 @@ function Todo(){
     function handleDeleteMember(member){                            
        setTeamEdit(teamEdit.filter((item)=>item!==member)); 
     }
- 
-    useEffect(()=>{
-        dispatch(getTodo());
-    },[dispatch]);
 
     return (
         <div>
