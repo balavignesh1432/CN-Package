@@ -1,7 +1,8 @@
 import React, { useEffect,useState } from 'react';
 
 //Material UI
-import { Avatar, List, ListItem, ListItemText, Paper, Typography,Dialog, DialogContent, DialogActions,DialogTitle,Button } from "@material-ui/core";
+import { Avatar, List, ListItem, ListItemText, Paper, Typography,Dialog, DialogContent, DialogActions,DialogTitle,Button, Divider } from "@material-ui/core";
+import {Person,Email} from '@material-ui/icons';
 
 //Redux
 import { useSelector,useDispatch } from "react-redux";
@@ -9,12 +10,14 @@ import { getroomUser, getUser } from '../redux/actions';
 
 
 function Team(){
-    const [members,setMembers]= useState([]);
-    const [userDetails,setUserDetails]=useState([]);
-    const [name,setName]=useState('');
-    const [contact,setContact]=useState('');
     const [open,setOpen]=useState(false);
 
+    const [members,setMembers]= useState([]);
+    const [userDetails,setUserDetails]=useState([]);
+    
+    const [name,setName]=useState('');
+    const [contact,setContact]=useState('');
+    
     const room = useSelector((state)=>state.roomReducer);
     const rooms= useSelector((state)=>state.roomUserReducer);
     const users = useSelector((state)=>state.userReducer);
@@ -66,7 +69,7 @@ function Team(){
                 return (
                     <div key={index}>
                     <ListItem button onClick={()=>handleUserDetails(user)}>
-                        <Avatar style={{backgroundColor:"blue",marginRight:"20px"}}>{user[0]}</Avatar>
+                        <Avatar style={{backgroundColor:"red",marginRight:"20px"}}>{user[0]}</Avatar>
                         <ListItemText primary={user} />
                     </ListItem>
                     </div>
@@ -81,17 +84,20 @@ function Team(){
         <Dialog open={open} onClose={handleDialogClose}>
                     <DialogTitle>Member Details</DialogTitle>
                     <DialogContent>
-                        <div style={{display:"flex",flexDirection:"row",alignItems:"center",width:"300px",justifyContent:"space-between"}}>
-                        <h3>Name</h3>
-                        <Typography variant="body1">{name}</Typography>
-                        </div>
-                        <div style={{display:"flex",flexDirection:"row",alignItems:"center",width:"300px",justifyContent:"space-between"}}>
-                        <h3>Email</h3>
-                        <Typography variant="body1">{contact}</Typography>        
-                        </div>
+                        <List style={{width:"300px"}}>
+                            <ListItem >
+                                <Person fontSize="large" style={{marginRight:"20px"}} />
+                                <ListItemText primary="Name" secondary={name} />
+                            </ListItem>
+                            <Divider />
+                            <ListItem>
+                                <Email fontSize="large" style={{marginRight:"20px"}} />
+                                <ListItemText primary="Email" secondary={contact} />
+                            </ListItem>
+                        </List>
                     </DialogContent>
                     <DialogActions>
-                        <Button color="primary" variant="contained" onClick={handleDialogClose}>Close</Button>
+                        <Button color="secondary" variant="contained" onClick={handleDialogClose}>Close</Button>
                     </DialogActions>
                 </Dialog>
         </div>
