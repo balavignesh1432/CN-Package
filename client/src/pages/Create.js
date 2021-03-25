@@ -64,8 +64,8 @@ return (
     <Paper elevation={10} className="loginPaper">
         <div className="login">
             <Typography variant="h3">Create Room</Typography>
-            <TextField label="Room" className="loginInput" value={room} onChange={(event)=>setRoom(event.target.value)}/>
-            <Button variant="contained" color="primary" onClick={handleClick}>Create</Button>
+            <TextField label="Room" className="loginInput" value={room} onChange={(event)=>setRoom(event.target.value.trim())}/>
+            <Button variant="contained" color="primary" onClick={handleClick} style={{width:"400px"}}>Create</Button>
         </div>
     </Paper>
     </>

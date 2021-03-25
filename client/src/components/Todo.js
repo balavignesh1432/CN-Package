@@ -2,9 +2,9 @@
 import React,{ useState,useEffect } from "react";
 
 //Material UI
-import { List, ListItem, ListItemText, Paper, TextField,Button,Typography,Menu ,MenuItem, IconButton, ListItemSecondaryAction, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
-import { Delete,MoreVert,Add} from "@material-ui/icons";
-
+import { List, ListItem, ListItemText, Paper, TextField,Button,Typography,Menu ,MenuItem, IconButton, ListItemSecondaryAction, Dialog, DialogTitle, DialogContent, DialogActions,Select, Snackbar } from '@material-ui/core';
+import { Delete,MoreVert,Add } from "@material-ui/icons";
+import Alert from '@material-ui/lab/Alert';
 //Redux
 import {useSelector, useDispatch} from 'react-redux';
 import {getTodo,putTodo,deleteTodo,moveTodo,editTodo,} from '../redux/actions/index';
@@ -19,18 +19,30 @@ function Todo(){
     const [current,setCurrent]=useState('');            //Current clicked Item
     
     const [newItem,setNewItem]=useState('');            //New Item
-    const [teamMember,setTeamMember]=useState('');      //New Member
+    
 
     const [titleEdit,setTitleEdit]=useState('');                //Edit Title
     const [descriptionEdit,setDescriptionEdit]=useState('');    //Edit Description              
     const [teamEdit,setTeamEdit]=useState([]);                  //Edit Team Members
  
-    const options=['Move','Delete'];                            //Menu Options
+    const room = useSelector(state=>state.roomReducer);
+    const roomUsers = useSelector(state=>state.roomUserReducer);
 
+    const [assignList,setAssignList] = useState([]);  
+    const options=['Move','Delete'];                            //Menu Options
+    const [teamOpen,setTeamOpen] = useState(false);
     //Redux State
     const dispatch = useDispatch();
     const todoList = useSelector((state)=>state.todoReducer);
 
+    useEffect(()=>{
+        for(let i=0;i<roomUsers.length;i++){
+            if(roomUsers[i].room===room){
+                setAssignList(roomUsers[i].users);
+            }
+        }
+    },[roomUsers,room]);
+    
     //Fetch Todo Lists
     useEffect(()=>{
         dispatch(getTodo());
@@ -63,7 +75,6 @@ function Todo(){
     function handleListClose(){
         setListOpen(false);
         dispatch(editTodo({name:current},{name:titleEdit,description:descriptionEdit,team:teamEdit}));
-        setTeamMember('');
     }
     
     //Opening Menu
@@ -92,19 +103,18 @@ function Todo(){
     }
 
     //Add Team Member
-    function handleTeam(){
+    function handleTeam(teamMember){
         let flag=0;
         for(let i=0;i<teamEdit.length;i++){                     //Check if team member already added
             if(teamEdit[i]===teamMember){
-                console.log("Already Exists");
+                setTeamOpen(true);
                 flag=1;
                 break
             }
         }
-        if(flag===0 && teamMember!==''){
-        setTeamEdit((prev)=>[...prev,teamMember]);
+        if(flag===0){
+            setTeamEdit((prev)=>[...prev,teamMember]);
         }
-        setTeamMember('');
     }
 
     //Remove Team Member
@@ -112,12 +122,27 @@ function Todo(){
        setTeamEdit(teamEdit.filter((item)=>item!==member)); 
     }
 
+    function handleAssigned(event){
+        handleTeam(event.target.value);
+    }
+
+    const handleTeamClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setTeamOpen(false);
+      };
     return (
         <div>
+            <Snackbar open={teamOpen} anchorOrigin={{vertical:'top',horizontal:'center'}} autoHideDuration={2000} onClose={handleTeamClose}>
+                <Alert onClose={handleTeamClose} severity="error">
+                Already Assigned        
+                </Alert>
+            </Snackbar>
             <Paper elevation={5} className="paperList">
             <Typography variant="h3" align="center">To Do</Typography>
             <div className="addItem">
-                <TextField className="inputField" label="Item" value={newItem} onChange={(event)=>setNewItem(event.target.value)} inputProps={{ maxLength: 35 }}/>
+                <TextField className="inputField" label="Item" value={newItem} onChange={(event)=>setNewItem(event.target.value.trim())} inputProps={{ maxLength: 35 }}/>
                 <IconButton variant='contained' color="primary" onClick={submitNewItem}><Add /></IconButton>
             </div>
             <div className="listComponent">
@@ -146,6 +171,7 @@ function Todo(){
                             );
                     })}
                 </Menu>
+                
                 <Dialog open={listOpen} onClose={handleListClose}>
                     <DialogTitle>To Do</DialogTitle>
                     <DialogContent>
@@ -154,7 +180,6 @@ function Todo(){
                             variant="outlined"
                             fullWidth
                             style={{marginTop:"10px"}}
-                            // defaultValue={current}
                             value={titleEdit}
                             onChange={(event)=>setTitleEdit(event.target.value)}
                         />
@@ -170,8 +195,21 @@ function Todo(){
                         />
                         <Typography variant="h6" style={{marginTop:"20px"}}>Assigned Members</Typography>
                         <div className="addItem">
-                        <TextField value={teamMember} onChange={(event)=>setTeamMember(event.target.value)} style={{flex:"1"}} inputProps={{ maxLength: 25 }}/>
-                        <IconButton color="primary" variant="contained" onClick={handleTeam}><Add/></IconButton>
+
+                        <Select
+                            style={{maxHeight:"50px",overflowY:"auto",overflowX:"hidden"}}
+                            fullWidth
+                            placeholder="Member"
+                            value=""
+                            onChange={handleAssigned}
+                            MenuProps={{ PaperProps:{style:{maxHeight:"200px"}} }}
+                        >
+                        {assignList.map((user,index)=>{
+                            return (
+                                <MenuItem key={index}   value={user}>{user}</MenuItem>
+                            )
+                        })}
+                        </Select>
                         </div>
                         <List>
                         {teamEdit.map((member,index)=>{

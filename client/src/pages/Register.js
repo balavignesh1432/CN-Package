@@ -58,13 +58,14 @@ function Register(){
           <Link to="/" style={{textDecoration:"none"}}><Button> Home </Button></Link>
         </Toolbar>
         </AppBar>
-        <Paper elevation={10} className="loginPaper">
-        <div className="login">
-        <TextField label="Name" className="loginInput" value={name} onChange={(event)=>setName(event.target.value)}/>
-        <TextField label="Email" className="loginInput" value={email} onChange={(event)=>setEmail(event.target.value)}/>
-        <TextField label="Username" className="loginInput" value={username} onChange={(event)=>setUsername(event.target.value)}/>
-        <TextField label="Password" className="loginInput" value={password} onChange={(event)=>setPassword(event.target.value)}/>
-        <Button variant="contained" color="primary" onClick={handleClick}>Register</Button>
+        <Paper elevation={10} className="loginPaper" style={{height:"400px"}}>
+        <div className="login" style={{height:"400px"}}>
+        <Typography variant="h4">Enter Details</Typography>
+        <TextField label="Name" className="loginInput" value={name} onChange={(event)=>setName(event.target.value.trim())}/>
+        <TextField label="Email" className="loginInput" value={email} onChange={(event)=>setEmail(event.target.value.trim())}/>
+        <TextField label="Username" className="loginInput" value={username} onChange={(event)=>setUsername(event.target.value.trim())}/>
+        <TextField label="Password" className="loginInput" value={password} onChange={(event)=>setPassword(event.target.value.trim())}/>
+        <Button variant="contained" color="primary" onClick={handleClick} style={{width:"400px"}}>Register</Button>
     </div>
     </Paper>
     </>

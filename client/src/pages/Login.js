@@ -57,9 +57,9 @@ function Login(){
         <Paper elevation={10} className="loginPaper">
             <div className="login">
                 <Typography variant="h3">Enter Login</Typography>
-                <TextField label="Username" className="loginInput" value={username} onChange={(event)=>setUsername(event.target.value)}/>
-                <TextField label="Password" className="loginInput" value={password} onChange={(event)=>setPassword(event.target.value)}/>
-                <Button variant="contained" color="primary" onClick={handleClick}>Login</Button>
+                <TextField label="Username" className="loginInput" value={username} onChange={(event)=>setUsername(event.target.value.trim())}/>
+                <TextField label="Password" className="loginInput" value={password} onChange={(event)=>setPassword(event.target.value.trim())}/>
+                <Button variant="contained" color="primary" onClick={handleClick} style={{width:"400px"}}>Login</Button>
             </div>
         </Paper>
         </>
