@@ -6,7 +6,6 @@ import { Button, TextField,Paper,AppBar,Toolbar,Typography} from "@material-ui/c
 
 //Routing
 import { useHistory } from "react-router-dom";
-import {Link} from 'react-router-dom';
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -54,11 +53,11 @@ function Register(){
         <AppBar position="static" className="appbar">
         <Toolbar>
           <Typography variant="h4" className="brandName">Project Board Manager</Typography>
-          <Link to="/login" style={{textDecoration:"none"}}><Button> Login </Button></Link>
-          <Link to="/" style={{textDecoration:"none"}}><Button> Home </Button></Link>
+          <Button onClick={()=>history.push("/login")} variant="text" style={{color:"whitesmoke"}} size="large"> Login </Button>
+          <Button onClick={()=>history.push("/")} variant="text" style={{color:"whitesmoke"}} size="large"> Home </Button>
         </Toolbar>
         </AppBar>
-        <Paper elevation={10} className="loginPaper" style={{height:"400px"}}>
+        <Paper elevation={10} className="loginPaper" style={{height:"400px",background:"#F0F0F0"}}>
         <div className="login" style={{height:"400px"}}>
         <Typography variant="h4">Enter Details</Typography>
         <TextField label="Name" className="loginInput" value={name} onChange={(event)=>setName(event.target.value.trim())}/>

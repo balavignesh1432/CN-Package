@@ -61,7 +61,7 @@ function Team(){
 
     return (
         <div className="Team" style={{margin:"75px 50px 50px 50px",display:"flex",justifyContent:"space-between"}}>
-        <Paper elevation={10} style={{width:"450px"}}>
+        <Paper elevation={10} style={{width:"450px",background:"#F0F0F0"}}>
         <Typography variant="h4" style={{margin:"10px 0 10px 0"}}>Team Members</Typography>
         <div className="teamList">
         <List>
@@ -78,7 +78,7 @@ function Team(){
         </List>
         </div>
         </Paper>
-        <Paper elevation={10} style={{width:"800px"}}>
+        <Paper elevation={10} style={{width:"800px",background:"#F0F0F0"}}>
             <h1>Chat</h1>
         </Paper>
         <Dialog open={open} onClose={handleDialogClose}>

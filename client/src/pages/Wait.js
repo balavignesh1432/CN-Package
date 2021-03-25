@@ -8,7 +8,6 @@ import { useSelector,useDispatch } from "react-redux";
 import { getroomUser } from "../redux/actions/index";
 
 //Routing
-import { Link } from "react-router-dom";
 import { useHistory, useParams } from "react-router";
 
 function Wait(){
@@ -26,7 +25,7 @@ function Wait(){
     
     useEffect(()=>{
         if(!isLogged){
-            history.push("/login");        
+            // history.push("/login");        
         }
     },[isLogged,history]);
 
@@ -45,15 +44,18 @@ function Wait(){
     },[dispatch,roomUsers,room,username,history]);
 
     return (
-        <>
+        <div>
         <AppBar position="static" className="appbar">
         <Toolbar>
           <Typography variant="h4" className="brandName">Project Board Manager</Typography>
-          <Link to="/" style={{textDecoration:"none"}}><Button> Logout </Button></Link>
+          <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/")}> Logout </Button>
         </Toolbar>
         </AppBar>
-        <h1>Waiting For Acceptance!</h1>
-        </>
+        <div style={{width:"600px",margin:"50px auto"}}>
+        <Typography variant='h3'>Wait while somebody lets you in....</Typography>
+        <img src="https://static.vecteezy.com/system/resources/previews/002/098/228/original/man-waiting-web-loading-concept-illustration-vector.jpg" alt="Wait" style={{width:"600px",marginTop:"50px"}}/>
+        </div>
+        </div>
     )
 }
 

@@ -2,10 +2,7 @@ import React from "react";
 import './App.css';
 
 //Routing
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
-//Material UI
-import { AppBar,Button,Toolbar, Typography } from "@material-ui/core";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //Pages
 import Register from './pages/Register';
@@ -15,21 +12,16 @@ import Create from "./pages/Create";
 import Join from "./pages/Join";
 import Wait from "./pages/Wait";
 import Success from "./pages/Success";
+import Home from "./pages/Home";
+import { Typography } from "@material-ui/core";
 
 function App() {
   return (
     <div className="App">
     <Router>
-    
       <Switch>
         <Route exact path="/">
-        <AppBar position="static" className="appbar">
-        <Toolbar>
-          <Typography variant="h4" className="brandName">Project Board Manager</Typography>
-          <Link to="/register" style={{textDecoration:"none"}}><Button> Register </Button></Link>
-          <Link to="/login" style={{textDecoration:"none"}}><Button> Login </Button></Link>
-        </Toolbar>
-        </AppBar>
+          <Home />
         </Route>
         <Route path="/board/:room/:username">
           <BoardPage />
@@ -54,6 +46,7 @@ function App() {
         </Route>
       </Switch>
     </Router>
+    <Typography style={{marginTop:"50px"}}>© Copyright Bala Vignesh</Typography>
     </div>
   );
 }

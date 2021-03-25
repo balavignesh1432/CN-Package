@@ -1,8 +1,7 @@
 import React,{useEffect} from "react";
-import { AppBar,Toolbar,Button,Typography,Card,CardHeader,CardContent,CardActions } from "@material-ui/core";
+import { AppBar,Toolbar,Button,Typography } from "@material-ui/core";
 import {useSelector} from 'react-redux';
 import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
 
 function Success(){
 
@@ -27,31 +26,28 @@ function Success(){
         <AppBar position="static" className="appbar">
         <Toolbar>
           <Typography variant="h4" className="brandName">Project Board Manager</Typography>
-          <Link to="/create" style={{textDecoration:"none"}}><Button> Create </Button></Link>
-          <Link to="/join" style={{textDecoration:"none"}}><Button> Join </Button></Link>
-          <Link to="/" style={{textDecoration:"none"}}><Button> Logout </Button></Link>
+          <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/create")}> Create </Button>
+          <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/join")}> Join </Button>
+          <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/")}> Logout </Button>
         </Toolbar>
         </AppBar>
-        <h1>Create or Join Room!</h1>
-        <div style={{display:"flex",justifyContent:"space-evenly",margin:"50px 0 0 0"}}>
-        <Card style={{width:"450px"}} elevation={10}>
-          <CardHeader title="Create Room" />
-          <CardContent>
-            <Typography variant="h6" color="textSecondary">Create new room and add people to your team to collobarate.</Typography> 
-          </CardContent>
-          <CardActions>
-              <Button color="secondary" variant="contained" fullWidth onClick={handleCreate}>Create</Button>
-          </CardActions>
-        </Card>
-        <Card style={{width:"450px"}} elevation={10}>
-          <CardHeader title="Join Room" />
-          <CardContent>
-            <Typography variant="h6" color="textSecondary">Join already existing room to work on the project with your team.</Typography>
-          </CardContent>
-          <CardActions>
-              <Button color="secondary" variant="contained" fullWidth onClick={handleJoin}>Join</Button>
-          </CardActions>
-        </Card>
+        <div style={{display:"flex",flexDirection:"column",justifyContent:"space-evenly",margin:"50px 0 0 0"}}>
+            <div style={{display:"flex",justifyContent:"space-around",alignItems:"center",margin:'100px 0 50px 70px'}}>
+                <div style={{width:"600px"}} >
+                    <Typography variant="h2">Create Room</Typography>
+                    <Typography variant="h4" style={{marginTop:"30px"}}>Create new room, add people to your team and start colloborating!</Typography>
+                    <Button variant="contained" color='secondary' onClick={handleCreate} size="large" style={{margin:"50px 0 0 0",width:"400px"}}>Create</Button>
+                </div>
+                <img src='https://thumbs.dreamstime.com/b/building-house-work-process-buildings-construction-machinery-flat-vector-concept-building-house-work-process-buildings-125839121.jpg' alt="Create" style={{width:"600px"}}/>
+            </div>
+            <div style={{display:"flex",justifyContent:"space-around",alignItems:"center",margin:'100px 50px 50px 50px'}}>
+                <img src='https://image.freepik.com/free-vector/businessman-enter-open-door-concept_48369-6111.jpg' alt="Join" style={{width:"600px"}} />
+                <div style={{width:"600px"}}>
+                    <Typography variant="h2">Join Room</Typography>
+                    <Typography variant="h4" style={{marginTop:"30px"}}>Join an existing room to start working with the team!</Typography>
+                    <Button variant="contained" color='secondary' onClick={handleJoin} size="large" style={{margin:"50px 0 0 0",width:"400px"}}>Join</Button>
+                </div>
+            </div>
         </div>
         </>
     );

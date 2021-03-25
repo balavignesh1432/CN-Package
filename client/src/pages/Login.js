@@ -6,7 +6,6 @@ import { Button, TextField,Paper,AppBar,Toolbar,Typography} from "@material-ui/c
 
 //Routing
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -50,11 +49,11 @@ function Login(){
         <AppBar position="static" className="appbar">
         <Toolbar>
           <Typography variant="h4" className="brandName">Project Board Manager</Typography>
-          <Link to="/register" style={{textDecoration:"none"}}><Button> Register </Button></Link>
-          <Link to="/" style={{textDecoration:"none"}}><Button> Home </Button></Link>
+          <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/register")}> Register </Button>
+          <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/")}> Home </Button>
         </Toolbar>
         </AppBar>
-        <Paper elevation={10} className="loginPaper">
+        <Paper elevation={10} className="loginPaper" style={{background:"#F0F0F0"}}>
             <div className="login">
                 <Typography variant="h3">Enter Login</Typography>
                 <TextField label="Username" className="loginInput" value={username} onChange={(event)=>setUsername(event.target.value.trim())}/>

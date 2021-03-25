@@ -16,7 +16,7 @@ import { acceptUser, getroomUser, getwaitUser, removeWaitUser } from "../redux/a
 import { useDispatch, useSelector } from 'react-redux';
 
 //Routing
-import {Link, useHistory, useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 
 function BoardPage(){
     
@@ -70,11 +70,11 @@ function BoardPage(){
         <AppBar position="static" className="appbar">
         <Toolbar>
           <Typography variant="h4" className="brandName">Project Board Manager</Typography>
-          <Button onClick={(event)=>{dispatch(getwaitUser());setAnchorEl(event.currentTarget)}} >
+          <Button onClick={(event)=>{dispatch(getwaitUser());setAnchorEl(event.currentTarget)}} style={{color:"whitesmoke"}}>
             Requests
             <Badge color="secondary" badgeContent={waitUsers.length}><Notifications /></Badge>
           </Button>
-          <Link to="/" style={{textDecoration:"none"}}><Button>Logout</Button></Link>
+          <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/")}>Logout</Button>
         </Toolbar>
         </AppBar>
         <Snackbar open={acceptOpen} anchorOrigin={{vertical:'top',horizontal:'center'}} autoHideDuration={2000} onClose={handleAcceptClose}>

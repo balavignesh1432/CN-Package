@@ -10,7 +10,6 @@ import { getroomUser,setroomUser } from "../redux/actions/index";
  
 //Routing
 import { useHistory } from 'react-router';
-import {Link} from 'react-router-dom';
 
 function Create(){
     
@@ -57,11 +56,11 @@ return (
     <AppBar position="static" className="appbar">
         <Toolbar>
           <Typography variant="h4" className="brandName">Project Board Manager</Typography>
-          <Link to="/join" style={{textDecoration:"none"}}><Button> Join </Button></Link>
-          <Link to="/" style={{textDecoration:"none"}}><Button> Logout </Button></Link>
+          <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/join")}> Join </Button>
+          <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/")}> Logout </Button>
         </Toolbar>
     </AppBar>
-    <Paper elevation={10} className="loginPaper">
+    <Paper elevation={10} className="loginPaper" style={{background:"#F0F0F0"}}>
         <div className="login">
             <Typography variant="h3">Create Room</Typography>
             <TextField label="Room" className="loginInput" value={room} onChange={(event)=>setRoom(event.target.value.trim())}/>

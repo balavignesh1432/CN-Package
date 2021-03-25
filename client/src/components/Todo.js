@@ -139,7 +139,7 @@ function Todo(){
                 Already Assigned        
                 </Alert>
             </Snackbar>
-            <Paper elevation={5} className="paperList">
+            <Paper elevation={5} className="paperList" style={{background:"#F0F0F0"}}>
             <Typography variant="h3" align="center">To Do</Typography>
             <div className="addItem">
                 <TextField className="inputField" label="Item" value={newItem} onChange={(event)=>setNewItem(event.target.value.trim())} inputProps={{ maxLength: 35 }}/>
