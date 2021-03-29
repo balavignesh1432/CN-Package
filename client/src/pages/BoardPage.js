@@ -8,9 +8,13 @@ import Team from '../components/Team';
 import Progress from '../components/Progress';
 
 //Material UI
-import { Menu,Button,Typography,AppBar,Toolbar, List,ListItem, Divider, ListItemText,Badge,Snackbar} from '@material-ui/core';
+import { Menu,MenuItem,Button,Typography,AppBar,Toolbar, List,ListItem, Divider, ListItemText,Badge,Snackbar,useTheme,useMediaQuery, IconButton} from '@material-ui/core';
 import {Notifications} from '@material-ui/icons';
+import MenuIcon from '@material-ui/icons/Menu';
 import { Alert } from "@material-ui/lab";
+
+import useStyle from '../styles/BoardStyles';
+
 //Redux
 import { acceptUser, getroomUser, getwaitUser, removeWaitUser } from "../redux/actions/index";
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,6 +24,12 @@ import {useHistory, useParams} from 'react-router-dom';
 
 function BoardPage(){
     
+    const theme=useTheme();
+    const isMobile=useMediaQuery(theme.breakpoints.down("sm"));
+    const [anchorElRes,setAnchorElRes] = useState(null);
+
+    const classes = useStyle();
+
     const {room}=useParams();
     const {username}=useParams();
 
@@ -69,12 +79,31 @@ function BoardPage(){
         <div>
         <AppBar position="static" className="appbar">
         <Toolbar>
-          <Typography variant="h4" className="brandName">Project Board Manager</Typography>
+          <Typography variant={!isMobile?"h4":"h6"} className="brandName">Project Board Manager</Typography>
+          {!isMobile?<div>
           <Button onClick={(event)=>{dispatch(getwaitUser());setAnchorEl(event.currentTarget)}} style={{color:"whitesmoke"}}>
             Requests
-            <Badge color="secondary" badgeContent={waitUsers.length}><Notifications /></Badge>
+          <Badge color="secondary" badgeContent={waitUsers.length}><Notifications /></Badge>
           </Button>
           <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/")}>Logout</Button>
+          </div>:
+          <>
+          <Button onClick={(event)=>{dispatch(getwaitUser());setAnchorEl(event.currentTarget)}} style={{color:"whitesmoke"}}>
+            {/* Requests */}
+          <Badge color="secondary" badgeContent={waitUsers.length}><Notifications /></Badge>
+          </Button>
+          <IconButton><MenuIcon onClick={(event)=>setAnchorElRes(event.currentTarget)}/></IconButton>
+          </>}
+          <Menu anchorEl={anchorElRes} open={Boolean(anchorElRes)} onClose={()=>setAnchorElRes (null)}>
+              {/* <MenuItem style={{width:"175px"}} onClick={()=>history.push("/join")}>
+                  <Typography variant='h6' style={{margin:"auto"}}>Requests</Typography>
+                  <Badge color="secondary" badgeContent={waitUsers.length}><Notifications /></Badge>
+              </MenuItem>
+              <Divider /> */}
+              <MenuItem onClick={()=>history.push("/")} style={{width:"130px"}}>
+              <Typography variant='h5' style={{margin:"auto"}}>Logout</Typography>
+              </MenuItem>
+          </Menu>
         </Toolbar>
         </AppBar>
         <Snackbar open={acceptOpen} anchorOrigin={{vertical:'top',horizontal:'center'}} autoHideDuration={2000} onClose={handleAcceptClose}>
@@ -109,7 +138,7 @@ function BoardPage(){
         <Button style={{width:"100px"}} variant="contained" color="secondary" onClick={()=>setAnchorEl(null)} size="small">Close</Button>
         </Menu>
         <Progress />
-        <div className="boardLists">
+        <div className={classes.boardLists}>
             <Todo />
             <Doing />
             <Done />

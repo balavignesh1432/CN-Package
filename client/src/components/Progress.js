@@ -19,7 +19,7 @@ function Progress(){
               <LinearProgress variant="determinate" {...props} />
             </Box>
             <Box minWidth={35}>
-              <Typography variant="h6">
+              <Typography variant="h6" >
               {`${Math.round(props.value,)}%`}
               </Typography>
             </Box>
@@ -28,7 +28,7 @@ function Progress(){
     }
     return(
         <div className="progress">
-        <Typography variant="h4">Project Completion</Typography>
+        <Typography variant="h4" style={{marginTop:"20px"}}>Project Completion</Typography>
         <LinearProgressWithLabel value={progress} />
         </div>
     );

@@ -2,7 +2,7 @@
 import React,{ useState,useEffect } from "react";
 
 //Material UI
-import { List, ListItem, ListItemText, Paper, TextField,Button,Typography,Menu ,MenuItem, IconButton, ListItemSecondaryAction,Dialog,DialogActions,DialogContent,DialogTitle,Select,Snackbar } from '@material-ui/core';
+import { List, ListItem, ListItemText, Paper, TextField,Button,Typography,Menu ,MenuItem, IconButton, ListItemSecondaryAction,Dialog,DialogActions,DialogContent,DialogTitle,Select,Snackbar,useTheme,useMediaQuery } from '@material-ui/core';
 import { Delete,MoreVert,Add } from "@material-ui/icons";
 import Alert from '@material-ui/lab/Alert';
 
@@ -11,6 +11,10 @@ import {useSelector, useDispatch} from 'react-redux';
 import {getDoing,putDoing,deleteDoing,editDoing,moveDoing} from '../redux/actions/index';
 
 function Doing(){
+
+    const theme=useTheme();
+    const isMobile=useMediaQuery(theme.breakpoints.down("sm"));
+
     const [listOpen,setListOpen]=useState(false);     //List Open State
     const [anchorEl, setAnchorEl] = useState(null);   //Menu position
     const open=Boolean(anchorEl);                     //Menu Open state
@@ -134,14 +138,14 @@ function Doing(){
       };
 
     return (
-        <div>
+        <div style={!isMobile?{width:"30%"}:{width:"90%",marginBottom:"20px"}}>
             <Snackbar open={teamOpen} anchorOrigin={{vertical:'top',horizontal:'center'}} autoHideDuration={2000} onClose={handleTeamClose}>
                 <Alert onClose={handleTeamClose} severity="error">
                     Already Assigned        
                 </Alert>
             </Snackbar>
             <Paper elevation={5} className="paperList" style={{background:"#F0F0F0"}}>
-            <Typography variant="h3" align="center">Doing</Typography>
+            <Typography variant={!isMobile?"h3":"h4"} align="center">Doing</Typography>
             <div className="addItem">
             <TextField className="inputField" label="Item" value={newItem} onChange={(event)=>setNewItem(event.target.value.trim())} inputProps={{ maxLength: 35 }}/>
             <IconButton variant="contained" color="primary" onClick={submitNewItem}><Add /></IconButton>
@@ -167,7 +171,7 @@ function Doing(){
                 >
                     {options.map((option,index)=>{
                         return (
-                            <MenuItem onClick={()=>{handleMenuClose(option)}} key={index}>
+                            <MenuItem style={isMobile?{width:"150px"}:{width:"100px"}} onClick={()=>{handleMenuClose(option)}} key={index}>
                                 {option}      
                             </MenuItem>
                             )

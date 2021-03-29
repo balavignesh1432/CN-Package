@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 //Material UI
-import { AppBar,Toolbar,Typography,Button } from "@material-ui/core";
+import { AppBar,Toolbar,Typography,Button,useTheme,useMediaQuery } from "@material-ui/core";
 
 //Redux
 import { useSelector,useDispatch } from "react-redux";
@@ -12,6 +12,9 @@ import { useHistory, useParams } from "react-router";
 
 function Wait(){
     
+    const theme=useTheme();
+    const isMobile=useMediaQuery(theme.breakpoints.down("sm"));
+
     const {room}=useParams();
     const {username}=useParams();
     
@@ -47,13 +50,13 @@ function Wait(){
         <div>
         <AppBar position="static" className="appbar">
         <Toolbar>
-          <Typography variant="h4" className="brandName">Project Board Manager</Typography>
-          <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/")}> Logout </Button>
+          <Typography variant={!isMobile?"h4":"h5"} className="brandName">Project Board Manager</Typography>
+          <Button variant="text" style={{color:"whitesmoke"}} size={!isMobile?"large":"small"} onClick={()=>history.push("/")}> Logout </Button>
         </Toolbar>
         </AppBar>
-        <div style={{width:"600px",margin:"50px auto"}}>
-        <Typography variant='h3'>Wait while somebody lets you in....</Typography>
-        <img src="https://static.vecteezy.com/system/resources/previews/002/098/228/original/man-waiting-web-loading-concept-illustration-vector.jpg" alt="Wait" style={{width:"600px",marginTop:"50px"}}/>
+        <div style={!isMobile?{width:"600px",margin:"50px auto"}:{width:"100%",margin:"50px auto"}}>
+        <Typography variant={!isMobile?'h3':'h4'}>Wait while somebody lets you in....</Typography>
+        <img src="https://static.vecteezy.com/system/resources/previews/002/098/228/original/man-waiting-web-loading-concept-illustration-vector.jpg" alt="Wait" style={!isMobile?{width:"600px",marginTop:"50px"}:{width:"100%",marginTop:"30px"}}/>
         </div>
         </div>
     )

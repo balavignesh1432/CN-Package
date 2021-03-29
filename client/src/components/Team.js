@@ -1,15 +1,21 @@
 import React, { useEffect,useState } from 'react';
 
 //Material UI
-import { Avatar, List, ListItem, ListItemText, Paper, Typography,Dialog, DialogContent, DialogActions,DialogTitle,Button, Divider } from "@material-ui/core";
+import { Avatar, List, ListItem, ListItemText, Paper, Typography,Dialog, DialogContent, DialogActions,DialogTitle,Button, Divider,useTheme,useMediaQuery } from "@material-ui/core";
 import {Person,Email} from '@material-ui/icons';
 
 //Redux
 import { useSelector,useDispatch } from "react-redux";
 import { getroomUser, getUser } from '../redux/actions';
+import useStyle from '../styles/BoardStyles';
 
 
 function Team(){
+
+    const classes= useStyle();
+    const theme=useTheme();
+    const isMobile=useMediaQuery(theme.breakpoints.down("sm"));
+
     const [open,setOpen]=useState(false);
 
     const [members,setMembers]= useState([]);
@@ -60,9 +66,9 @@ function Team(){
     }
 
     return (
-        <div className="Team" style={{margin:"75px 50px 50px 50px",display:"flex",justifyContent:"space-between"}}>
-        <Paper elevation={10} style={{width:"450px",background:"#F0F0F0"}}>
-        <Typography variant="h4" style={{margin:"10px 0 10px 0"}}>Team Members</Typography>
+        <div className={classes.team}>
+        <Paper elevation={10} style={!isMobile?{width:"30%",background:"#F0F0F0"}:{width:"90%",background:"#F0F0F0"}}>
+        <Typography variant={!isMobile?"h4":"h5"} style={{margin:"10px 0 10px 0"}}>Team Members</Typography>
         <div className="teamList">
         <List>
             {members.map((user,index)=>{
@@ -78,7 +84,7 @@ function Team(){
         </List>
         </div>
         </Paper>
-        <Paper elevation={10} style={{width:"800px",background:"#F0F0F0"}}>
+        <Paper elevation={10} style={!isMobile?{width:"50%",background:"#F0F0F0"}:{width:"90%",background:"#F0F0F0",marginTop:"20px"}}>
             <h1>Chat</h1>
         </Paper>
         <Dialog open={open} onClose={handleDialogClose}>
