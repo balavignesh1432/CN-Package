@@ -7,10 +7,11 @@ import {usernameReducer} from './usernameReducer';
 import { userReducer } from "./userReducer";
 import { roomUserReducer } from "./roomUserReducer";
 import { waitUserReducer } from "./waitUserReducer";
+import {messageReducer} from './messageReducer';
 
 
 import { combineReducers } from "redux";
 
-const allReducers = combineReducers({todoReducer, doingReducer, doneReducer, loggedReducer, userReducer,roomUserReducer,waitUserReducer,roomReducer,usernameReducer});
+const allReducers = combineReducers({todoReducer, doingReducer, doneReducer, loggedReducer, userReducer,roomUserReducer,waitUserReducer,roomReducer,usernameReducer,messageReducer});
 
 export default allReducers;

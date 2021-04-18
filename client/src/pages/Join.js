@@ -71,8 +71,8 @@ return (
                 <Typography className={classes.brand} variant={!isMobile?"h4":"h6"}>Project Board Manager</Typography>
             </div> 
             {!isMobile?<div>         
-            <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/create")}> Create </Button>
-            <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/")}> Logout </Button>
+            <Button  style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/create")}> Create </Button>
+            <Button  style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/")}> Logout </Button>
             </div>:<IconButton onClick={(event)=>setAnchorEl(event.currentTarget)}><MenuIcon /></IconButton>}  
             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={()=>setAnchorEl(null)}>
               <MenuItem style={{width:"175px"}} onClick={()=>history.push("/create")}>

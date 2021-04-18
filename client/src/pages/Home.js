@@ -21,8 +21,8 @@ function Home(){
             </div>
             {!isMobile?
             <div>
-            <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/register")}> Register </Button>
-            <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/login")}> Login </Button>
+            <Button  style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/register")}> Register </Button>
+            <Button  style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/login")}> Login </Button>
             </div>
             :<IconButton onClick={(event)=>setAnchorEl(event.currentTarget)}><MenuIcon /></IconButton>}
             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={()=>setAnchorEl(null)}>

@@ -9,7 +9,7 @@ import Progress from '../components/Progress';
 
 //Material UI
 import { Menu,MenuItem,Button,Typography,AppBar,Toolbar, List,ListItem, Divider, ListItemText,Badge,Snackbar,useTheme,useMediaQuery, IconButton} from '@material-ui/core';
-import {Notifications} from '@material-ui/icons';
+import { Notifications} from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Alert } from "@material-ui/lab";
 
@@ -85,7 +85,7 @@ function BoardPage(){
             Requests
           <Badge color="secondary" badgeContent={waitUsers.length}><Notifications /></Badge>
           </Button>
-          <Button variant="text" style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/")}>Logout</Button>
+          <Button style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/")}>Logout</Button>
           </div>:
           <>
           <Button onClick={(event)=>{dispatch(getwaitUser());setAnchorEl(event.currentTarget)}} style={{color:"whitesmoke"}}>
@@ -144,6 +144,7 @@ function BoardPage(){
             <Done />
         </div>
         <Team />
+        {/* <Chat /> */}
         </div>
     )
 }

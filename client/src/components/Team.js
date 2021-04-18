@@ -1,16 +1,21 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect,useRef,useState } from 'react';
+import {io} from 'socket.io-client';
 
 //Material UI
-import { Avatar, List, ListItem, ListItemText, Paper, Typography,Dialog, DialogContent, DialogActions,DialogTitle,Button, Divider,useTheme,useMediaQuery } from "@material-ui/core";
-import {Person,Email} from '@material-ui/icons';
+import { Avatar, List, ListItem, ListItemText, Paper, Typography,Dialog, DialogContent, DialogActions,DialogTitle,Button, Divider,useTheme,useMediaQuery,TextField,IconButton } from "@material-ui/core";
+import {Person,Email,Send} from '@material-ui/icons';
 
 //Redux
 import { useSelector,useDispatch } from "react-redux";
 import { getroomUser, getUser } from '../redux/actions';
 import useStyle from '../styles/BoardStyles';
+import Chat from './Chat';
 
 
 function Team(){
+
+    const server='http://localhost:4000';
+    const socket = useRef();
 
     const classes= useStyle();
     const theme=useTheme();
@@ -23,13 +28,34 @@ function Team(){
     
     const [name,setName]=useState('');
     const [contact,setContact]=useState('');
-    
+    const [message,setMessage]=useState('');
+
     const room = useSelector((state)=>state.roomReducer);
     const rooms= useSelector((state)=>state.roomUserReducer);
     const users = useSelector((state)=>state.userReducer);
+    const username= useSelector((state)=>state.usernameReducer);
 
     const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch({type:"RESET_MESSAGE"});
+    },[dispatch]);
     
+    useEffect(()=>{
+        socket.current = io(server);
+        socket.current.emit('join',{room:room});
+        return ()=>{    
+            socket.current.close();
+        }
+    },[room]);
+
+    useEffect(()=>{
+        socket.current.on('update',(data)=>{
+            console.log(data);
+            dispatch({type:"SET_MESSAGE",payload:{username:data.username,message:data.message}});
+        });
+    },[socket,dispatch]);
+
     useEffect(()=>{
         dispatch(getroomUser());
         dispatch(getUser());
@@ -65,6 +91,10 @@ function Team(){
         setContact('');
     }
 
+    function handleMessage(){
+        socket.current.emit('chat',{room,username,message});
+        setMessage('');
+    }
     return (
         <div className={classes.team}>
         <Paper elevation={10} style={!isMobile?{width:"30%",background:"#F0F0F0"}:{width:"90%",background:"#F0F0F0"}}>
@@ -85,7 +115,12 @@ function Team(){
         </div>
         </Paper>
         <Paper elevation={10} style={!isMobile?{width:"50%",background:"#F0F0F0"}:{width:"90%",background:"#F0F0F0",marginTop:"20px"}}>
-            <h1>Chat</h1>
+            <Typography variant='h4' style={{marginTop:"10px"}}>Chatroom</Typography>
+            <Chat />
+            <div style={{display:"flex",width:"100%",alignItems:"flex-end"}}>
+            <TextField  multiline placeholder="Type your message here..." rowsMax={4} value={message} style={{flex:"1",margin:"0 0 10px 20px"}} onChange={(event)=>setMessage(event.target.value)}/>
+            <IconButton onClick={handleMessage}><Send fontSize="large" /></IconButton>
+            </div>
         </Paper>
         <Dialog open={open} onClose={handleDialogClose}>
                     <DialogTitle>Member Details</DialogTitle>

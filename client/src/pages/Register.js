@@ -61,8 +61,8 @@ function Register(){
         <Toolbar>
           <Typography variant={!isMobile?"h4":"h6"} className="brandName">Project Board Manager</Typography>
           {!isMobile?<div>
-          <Button onClick={()=>history.push("/login")} variant="text" style={{color:"whitesmoke"}} size="large"> Login </Button>
-          <Button onClick={()=>history.push("/")} variant="text" style={{color:"whitesmoke"}} size="large"> Home </Button>
+          <Button onClick={()=>history.push("/login")}  style={{color:"whitesmoke"}} size="large"> Login </Button>
+          <Button onClick={()=>history.push("/")}  style={{color:"whitesmoke"}} size="large"> Home </Button>
           </div>:<IconButton onClick={(event)=>setAnchorEl(event.currentTarget)}><MenuIcon /></IconButton>}
           <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={()=>setAnchorEl(null)}>
               <MenuItem style={{width:"150px"}} onClick={()=>history.push("/login")}>

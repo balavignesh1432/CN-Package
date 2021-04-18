@@ -51,7 +51,7 @@ function Wait(){
         <AppBar position="static" className="appbar">
         <Toolbar>
           <Typography variant={!isMobile?"h4":"h5"} className="brandName">Project Board Manager</Typography>
-          <Button variant="text" style={{color:"whitesmoke"}} size={!isMobile?"large":"small"} onClick={()=>history.push("/")}> Logout </Button>
+          <Button  style={{color:"whitesmoke"}} size={!isMobile?"large":"small"} onClick={()=>history.push("/")}> Logout </Button>
         </Toolbar>
         </AppBar>
         <div style={!isMobile?{width:"600px",margin:"50px auto"}:{width:"100%",margin:"50px auto"}}>
