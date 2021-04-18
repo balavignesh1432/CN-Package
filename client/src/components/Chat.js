@@ -18,8 +18,9 @@ function Chat(){
                 <div key={index}>
                 <ListItem style={{width:"100%"}}>
                 <ListItemText style={{display:"flex",flexDirection:"column"}}>
+                    <Typography variant="caption" color="textSecondary">{message.time}</Typography>
                     {message.username===username?<Typography variant="body2" color="secondary">You</Typography>:<Typography variant="body2" color="secondary">{message.username}</Typography>}
-                    <Typography variant="h6" style={{wordWrap:"break-word"}}>{message.message}</Typography>
+                    <Typography variant="body1" style={{wordWrap:"break-word"}}>{message.message}</Typography>
                 </ListItemText>
                 </ListItem>
                 <Divider />

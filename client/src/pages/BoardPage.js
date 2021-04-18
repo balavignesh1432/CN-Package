@@ -128,8 +128,8 @@ function BoardPage(){
                 return(     
                     <ListItem key={index}>  
                     <Typography variant="body1" style={{marginRight:"50px"}}>{user}</Typography>
-                    <Button variant="contained" color="primary" size="small" style={{marginRight:"3px"}} onClick={()=>{setAcceptOpen(true);dispatch(acceptUser(user))}}>Accept</Button>
-                    <Button variant="contained" color="secondary" size="small" onClick={()=>{setRejectOpen(true);dispatch(removeWaitUser(user))}}>Reject</Button>
+                    <Button variant="outlined" color="primary" size="small" style={{marginRight:"3px"}} onClick={()=>{setAcceptOpen(true);dispatch(acceptUser(user))}}>Accept</Button>
+                    <Button variant="outlined" color="secondary" size="small" onClick={()=>{setRejectOpen(true);dispatch(removeWaitUser(user))}}>Reject</Button>
                     <Divider />
                     </ListItem>
                 );

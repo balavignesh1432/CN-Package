@@ -21,7 +21,7 @@ io.on("connection",(socket)=>{
     
     socket.on('chat',(data)=>{
         console.log(data);
-        io.in(data.room).emit('update',{username:data.username,message:data.message});
+        io.in(data.room).emit('update',{username:data.username,message:data.message,time:data.time});
     });
     
     socket.on("disconnect",()=>{

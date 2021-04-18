@@ -15,6 +15,7 @@ const useStyle = makeStyles((theme)=>({
           display:"flex",
           justifyContent:"space-around",
           width:"100%",
+          alignItems:"flex-start",
           [theme.breakpoints.down("sm")]:{
               flexDirection:"column",
               alignItems:"center",

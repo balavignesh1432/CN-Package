@@ -8,7 +8,6 @@ import {Person,Email,Send} from '@material-ui/icons';
 //Redux
 import { useSelector,useDispatch } from "react-redux";
 import { getroomUser, getUser } from '../redux/actions';
-import useStyle from '../styles/BoardStyles';
 import Chat from './Chat';
 
 
@@ -17,7 +16,6 @@ function Team(){
     const server='http://localhost:4000';
     const socket = useRef();
 
-    const classes= useStyle();
     const theme=useTheme();
     const isMobile=useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -52,7 +50,7 @@ function Team(){
     useEffect(()=>{
         socket.current.on('update',(data)=>{
             console.log(data);
-            dispatch({type:"SET_MESSAGE",payload:{username:data.username,message:data.message}});
+            dispatch({type:"SET_MESSAGE",payload:{username:data.username,message:data.message,time:data.time}});
         });
     },[socket,dispatch]);
 
@@ -92,11 +90,13 @@ function Team(){
     }
 
     function handleMessage(){
-        socket.current.emit('chat',{room,username,message});
+        const currentDate = new Date();
+        const time=currentDate.getHours()+":"+currentDate.getMinutes();
+        socket.current.emit('chat',{room,username,message,time});
         setMessage('');
     }
     return (
-        <div className={classes.team}>
+        <div style={!isMobile?{display:"flex",marginTop:"60px",justifyContent:"space-evenly",alignItems:"flex-start"}:{display:"flex",flexDirection:"column",alignItems:"center"}}>
         <Paper elevation={10} style={!isMobile?{width:"30%",background:"#F0F0F0"}:{width:"90%",background:"#F0F0F0"}}>
         <Typography variant={!isMobile?"h4":"h5"} style={{margin:"10px 0 10px 0"}}>Team Members</Typography>
         <div className="teamList">
