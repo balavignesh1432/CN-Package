@@ -49,7 +49,7 @@ function Team(){
 
     useEffect(()=>{
         socket.current.on('update',(data)=>{
-            console.log(data);
+            // console.log(data);
             dispatch({type:"SET_MESSAGE",payload:{username:data.username,message:data.message,time:data.time}});
         });
     },[socket,dispatch]);

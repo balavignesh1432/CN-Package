@@ -12,7 +12,7 @@ function Chat(){
     },[chat]);
     
     return (
-        <List style={{width:"100%"}}>
+        <List style={{width:"100%",maxHeight:"400px",overflowY:"auto"}}>
        {messages.length!==0 && messages.map((message,index)=>{
             return (
                 <div key={index}>
