@@ -58,7 +58,6 @@ function Success(){
         </AppBar>
         <div className={classes.content}>
             <div className={classes.create}>
-                {isMobile && <img src='https://www.kareo.com/sites/default/files/styles/kfile_800x600/public/kfm/img/2015/5-steps-to-creating-website-01.jpg?itok=WLTTcMRa' alt="Create" className={classes.image}/> }
                 <div className={classes.text} >
                     <Typography variant={!isMobile?"h2":"h4"}>Create Room</Typography>
                     <Typography variant={!isMobile?"h4":"h5"} style={{marginTop:"30px"}}>Create new room, add people to your team and start colloborating!</Typography>

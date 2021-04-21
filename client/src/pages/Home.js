@@ -24,7 +24,7 @@ function Home(){
             <Button  style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/register")}> Register </Button>
             <Button  style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/login")}> Login </Button>
             </div>
-            :<IconButton onClick={(event)=>setAnchorEl(event.currentTarget)}><MenuIcon /></IconButton>}
+            :<IconButton onClick={(event)=>setAnchorEl(event.currentTarget)} style={{color:"white"}}><MenuIcon /></IconButton>}
             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={()=>setAnchorEl(null)}>
               <MenuItem style={{width:"175px"}} onClick={()=>history.push("/register")}>
                   <Typography variant='h6' style={{margin:"auto"}}>Register</Typography>

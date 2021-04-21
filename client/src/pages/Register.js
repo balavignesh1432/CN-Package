@@ -63,7 +63,7 @@ function Register(){
           {!isMobile?<div>
           <Button onClick={()=>history.push("/login")}  style={{color:"whitesmoke"}} size="large"> Login </Button>
           <Button onClick={()=>history.push("/")}  style={{color:"whitesmoke"}} size="large"> Home </Button>
-          </div>:<IconButton onClick={(event)=>setAnchorEl(event.currentTarget)}><MenuIcon /></IconButton>}
+          </div>:<IconButton onClick={(event)=>setAnchorEl(event.currentTarget)} style={{color:"white"}}><MenuIcon /></IconButton>}
           <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={()=>setAnchorEl(null)}>
               <MenuItem style={{width:"150px"}} onClick={()=>history.push("/login")}>
                   <Typography variant='h6' style={{margin:"auto"}}>Login</Typography>

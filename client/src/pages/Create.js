@@ -68,7 +68,7 @@ return (
             {!isMobile?<div>         
             <Button  style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/join")}> Join </Button>
             <Button  style={{color:"whitesmoke"}} size="large" onClick={()=>history.push("/")}> Logout </Button>
-            </div>:<IconButton onClick={(event)=>setAnchorEl(event.currentTarget)}><MenuIcon /></IconButton>}
+            </div>:<IconButton onClick={(event)=>setAnchorEl(event.currentTarget)} style={{color:"white"}}><MenuIcon /></IconButton>}
             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={()=>setAnchorEl(null)}>
               <MenuItem style={{width:"175px"}} onClick={()=>history.push("/join")}>
                   <Typography variant='h6' style={{margin:"auto"}}>Join</Typography>

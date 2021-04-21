@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url="http://localhost:5000";          //Server URL
+const url="https://projectboardmanager.herokuapp.com";          //Server URL
 
 //Fetching Todo Items
 const getTodo = () => async (dispatch,getState) =>{

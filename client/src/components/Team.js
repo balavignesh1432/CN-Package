@@ -13,7 +13,7 @@ import Chat from './Chat';
 
 function Team(){
 
-    const server='http://localhost:4000';
+    const server='https://projectboardsocket.herokuapp.com';
     const socket = useRef();
 
     const theme=useTheme();

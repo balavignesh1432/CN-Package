@@ -92,14 +92,9 @@ function BoardPage(){
             {/* Requests */}
           <Badge color="secondary" badgeContent={waitUsers.length}><Notifications /></Badge>
           </Button>
-          <IconButton><MenuIcon onClick={(event)=>setAnchorElRes(event.currentTarget)}/></IconButton>
+          <IconButton style={{color:"white"}}><MenuIcon onClick={(event)=>setAnchorElRes(event.currentTarget)}/></IconButton>
           </>}
           <Menu anchorEl={anchorElRes} open={Boolean(anchorElRes)} onClose={()=>setAnchorElRes (null)}>
-              {/* <MenuItem style={{width:"175px"}} onClick={()=>history.push("/join")}>
-                  <Typography variant='h6' style={{margin:"auto"}}>Requests</Typography>
-                  <Badge color="secondary" badgeContent={waitUsers.length}><Notifications /></Badge>
-              </MenuItem>
-              <Divider /> */}
               <MenuItem onClick={()=>history.push("/")} style={{width:"130px"}}>
               <Typography variant='h5' style={{margin:"auto"}}>Logout</Typography>
               </MenuItem>
